@@ -8,6 +8,7 @@ this library has not been tested yet
 */
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 
@@ -50,30 +51,29 @@ var connectCmd = &cobra.Command{
 		defer client.Close()
 		fmt.Println("Connected!")
 
+		scanner := bufio.NewScanner(os.Stdin)
 		var runningCmd string
 		for runningCmd != "quit" {
 			fmt.Printf("RCON /> ")
-			_, err := fmt.Scanln(&runningCmd)
-			if err != nil {
-				return err // maybe this can just clear out runningcmd and continue
-			}
+			if scanner.Scan() {
+				runningCmd = scanner.Text()
 
-			//no need to send exit command
-			if runningCmd == "quit" {
-				break
-			}
-			//empty commands have no impact
-			if runningCmd == "" {
-				continue
-			}
+				//no need to send exit command
+				if runningCmd == "quit" {
+					break
+				}
+				//empty commands have no impact
+				if runningCmd == "" {
+					continue
+				}
 
-			//send command to server and print response
-			res, err := client.Command(runningCmd)
-			if err != nil {
-				return err
+				//send command to server and print response
+				res, err := client.Command(runningCmd)
+				if err != nil {
+					return err
+				}
+				fmt.Printf("\n%s\n", res)
 			}
-			fmt.Println()
-			fmt.Println(res)
 		}
 
 		return nil
