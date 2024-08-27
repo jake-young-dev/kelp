@@ -11,9 +11,10 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "kelp",
-	Short: "A terminal remote console client for Minecraft servers",
-	Long:  `Kelp is a terminal-friendly remote console client to allow for managing Minecraft servers remotely.`,
+	Use:     "kelp", //kelp command has no functionality and will simply display the "help" message
+	Short:   "A terminal remote console client for Minecraft servers",
+	Long:    `Kelp is a terminal-friendly remote console client to allow for managing Minecraft servers remotely.`,
+	Version: "v0.0.2",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -26,5 +27,6 @@ func Execute() {
 }
 
 func init() {
+	//dont show completion subcommand in help message, makes the syntax confusing
 	rootCmd.Root().CompletionOptions.DisableDefaultCmd = true
 }

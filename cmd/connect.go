@@ -3,10 +3,6 @@ Copyright © 2024 jake-young-dev
 */
 package cmd
 
-/*
-this library has not been tested yet
-*/
-
 import (
 	"bufio"
 	"fmt"
@@ -17,10 +13,10 @@ import (
 	"golang.org/x/term"
 )
 
-// flags
+// command flags
 var (
-	address string
-	port    int
+	address string //server address/ip
+	port    int    //rcon port
 )
 
 // connectCmd represents the connect subcommand for kelp
@@ -37,7 +33,7 @@ var connectCmd = &cobra.Command{
 
 		//read in password
 		fmt.Printf("Password: ")
-		ps, err := term.ReadPassword(int(os.Stdin.Fd()))
+		ps, err := term.ReadPassword(int(os.Stdin.Fd())) //hides password from terminal
 		if err != nil {
 			return err
 		}
@@ -53,6 +49,7 @@ var connectCmd = &cobra.Command{
 
 		scanner := bufio.NewScanner(os.Stdin)
 		var runningCmd string
+		//read in commands until the user disconnects
 		for runningCmd != "quit" {
 			fmt.Printf("RCON /> ")
 			if scanner.Scan() {
@@ -82,6 +79,7 @@ var connectCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(connectCmd)
+	//add and enforce flags
 	connectCmd.Flags().StringVarP(&address, "server", "s", "", "server rcon address")
 	connectCmd.Flags().IntVarP(&port, "port", "p", 0, "server rcon port")
 	connectCmd.MarkFlagRequired("server")
