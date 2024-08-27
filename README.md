@@ -1,2 +1,2 @@
 # kelp
-Minecraft terminal remote console using cobra and mcr
+W.I.P. Minecraft terminal remote console using cobra and mcr

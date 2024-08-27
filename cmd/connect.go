@@ -3,6 +3,10 @@ Copyright © 2024 jake-young-dev
 */
 package cmd
 
+/*
+this library has not been tested yet
+*/
+
 import (
 	"fmt"
 	"os"
@@ -12,31 +16,36 @@ import (
 	"golang.org/x/term"
 )
 
+// flags
 var (
 	address string
 	port    int
 )
 
-// connectCmd represents the connect command
+// connectCmd represents the connect subcommand for kelp
 var connectCmd = &cobra.Command{
 	Use:   "connect",
 	Short: "Connect to a Minecraft server",
-	Long:  `Attempt to connect to a Minecraft server, password is required after connection. Once authenticated the connection can be used to make rcon commands to the server in typical fashion`,
-	Run: func(cmd *cobra.Command, args []string) {
+	Long:  `Attempt to connect to a Minecraft server, password is required on connection. Once authenticated, the connection can be used to make rcon commands to the server in typical Minecraft fashion`,
+	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Printf("Attempting to connect to %s on port %d\n", address, port)
+
+		//create rcon client
 		connectStr := fmt.Sprintf("%s:%d", address, port)
 		client := mcr.NewClient(connectStr)
 
+		//read in password
 		fmt.Printf("Password: ")
 		ps, err := term.ReadPassword(int(os.Stdin.Fd()))
 		if err != nil {
-			panic(err)
+			return err
 		}
-		fmt.Println()
+		fmt.Println() //print newline after password entered for prettier printing
 
+		//connect to server and authenticate
 		err = client.Connect(string(ps))
 		if err != nil {
-			panic(err)
+			return err
 		}
 		defer client.Close()
 		fmt.Println("Connected!")
@@ -46,25 +55,28 @@ var connectCmd = &cobra.Command{
 			fmt.Printf("RCON /> ")
 			_, err := fmt.Scanln(&runningCmd)
 			if err != nil {
-				panic(err)
+				return err // maybe this can just clear out runningcmd and continue
 			}
 
+			//no need to send exit command
 			if runningCmd == "quit" {
 				break
 			}
+			//empty commands have no impact
 			if runningCmd == "" {
 				continue
 			}
 
+			//send command to server and print response
 			res, err := client.Command(runningCmd)
 			if err != nil {
-				panic(err)
+				return err
 			}
 			fmt.Println()
 			fmt.Println(res)
-
 		}
 
+		return nil
 	},
 }
 
