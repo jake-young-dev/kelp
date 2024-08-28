@@ -1,11 +1,6 @@
 # kelp
 Terminal-based remote console for Minecraft servers.
 
-# dependencies
-- [github.com/spf13/cobra v1.8.1](https://github.com/spf13/cobra)
-- [github.com/jake-young-dev/mcr v0.2.4](https://github.com/jake-young-dev/mcr)
-- [golang.org/x/term v0.23.0](https://golang.org/x/term)
-
 # usage
 - Install command with go install
     - go install github.com/jake-young-dev/kelp@latest
@@ -13,6 +8,11 @@ Terminal-based remote console for Minecraft servers.
     - kelp connect -s address -p port
 - Enter rcon password when prompted
 - Enter commands to send to the server, type "quit" to disconnect
+
+# dependencies
+- [cobra](https://github.com/spf13/cobra)
+- [mcr](https://github.com/jake-young-dev/mcr)
+- [term](https://golang.org/x/term)
 
 # notes
 - This repo is working to the best of my knowledge but is still in early stages of development and you may encounter bugs. Please open an issue for any bugs found.
