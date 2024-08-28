@@ -23,7 +23,7 @@ var (
 var connectCmd = &cobra.Command{
 	Use:          "connect",
 	Short:        "Connect to a Minecraft server",
-	Long:         `Attempt to connect to a Minecraft server, password is required on connection. Once authenticated, the connection can be used to make rcon commands to the server in typical Minecraft fashion`,
+	Long:         `Make a connection request to the Minecraft server, password is required on connection. Once authenticated, the connection can be used to make rcon commands to the server in typical Minecraft fashion`,
 	SilenceUsage: true, //don't show usage/help message when erroring to make error easier to see
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Printf("Attempting to connect to %s on port %d\n", address, port)

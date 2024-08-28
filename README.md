@@ -5,7 +5,7 @@ Terminal-based remote console for Minecraft servers.
 - Install command with go install
     - go install github.com/jake-young-dev/kelp@latest
 - Connect to the server with the kelp command with server address and port number
-    - kelp connect -s address -p port
+    - kelp connect -s serveraddress -p port
 - Enter rcon password when prompted
 - Enter commands to send to the server, type "quit" to disconnect
 
