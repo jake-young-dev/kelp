@@ -13,6 +13,16 @@ import (
 	"golang.org/x/term"
 )
 
+const (
+	//command argument values
+	SRVR_ARG     = "server"
+	SRVR_ARG_SH  = "s"
+	SRVR_ARG_DSC = "server rcon address"
+	PORT_ARG     = "port"
+	PORT_ARG_SH  = "p"
+	PORT_ARG_DSC = "server rcon port"
+)
+
 // command flags
 var (
 	address string //server address/ip
@@ -23,7 +33,7 @@ var (
 var connectCmd = &cobra.Command{
 	Use:          "connect",
 	Short:        "Connect to a Minecraft server",
-	Long:         `Make a connection request to the Minecraft server, password is required on connection. Once authenticated, the connection can be used to make rcon commands to the server in typical Minecraft fashion`,
+	Long:         `Make a connection request to the Minecraft server, the connection can then be used to send rcon commands to the server in typical Minecraft fashion`,
 	SilenceUsage: true, //don't show usage/help message when erroring to make error easier to see
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Printf("Attempting to connect to %s on port %d\n", address, port)
@@ -81,8 +91,8 @@ var connectCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(connectCmd)
 	//add and enforce flags
-	connectCmd.Flags().StringVarP(&address, "server", "s", "", "server rcon address")
-	connectCmd.Flags().IntVarP(&port, "port", "p", 0, "server rcon port")
-	connectCmd.MarkFlagRequired("server")
-	connectCmd.MarkFlagRequired("port")
+	connectCmd.Flags().StringVarP(&address, SRVR_ARG, SRVR_ARG_SH, "", SRVR_ARG_DSC)
+	connectCmd.Flags().IntVarP(&port, PORT_ARG, PORT_ARG_SH, 0, PORT_ARG_DSC)
+	connectCmd.MarkFlagRequired(SRVR_ARG)
+	connectCmd.MarkFlagRequired(PORT_ARG)
 }

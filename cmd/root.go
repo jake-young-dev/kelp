@@ -13,8 +13,8 @@ import (
 var rootCmd = &cobra.Command{
 	Use:     "kelp", //kelp command has no functionality and will simply display the "help" message
 	Short:   "A terminal remote console client for Minecraft servers",
-	Long:    `Kelp is a terminal-friendly remote console client to allow for managing Minecraft servers remotely.`,
-	Version: "v0.0.5",
+	Long:    `Kelp is a terminal-friendly remote console client to manage Minecraft servers.`,
+	Version: "v0.0.6",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
