@@ -14,6 +14,9 @@ Terminal-based remote console for Minecraft servers.
 - [mcr](https://github.com/jake-young-dev/mcr)
 - [term](https://golang.org/x/term)
 
+# security
+- RCon is an inherently insecure protocol that sends passwords in plaintext. I recommend using a VPN or keeping the connection local when possible.
+
 # notes
 - RCon isn't the most secure protocol and can be abused, ensure you use a VERY strong password and if possible do not expose the RCon port to the open internet. When possible use a VPN or local connection.
 - RCon runs commands directly on your Minecraft server, only run commands that you know the expected outcome to prevent altering your server accidentally.
